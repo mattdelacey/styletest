@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar color={{myBrandData.PrimaryColor}}>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Offline</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let account of accounts">
+      <ion-icon name="md-briefcase" item-start>
+        <h2 item-content>{{account.accountname}}</h2>
+        <h3 item-content>{{account.accountcompany}}</h3>
+      </ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-fab top right edge>
+    <button ion-fab mini (click)="syncMe()">
+      <ion-icon name="md-refresh-circle"></ion-icon>
+    </button>
+    <button ion-fab mini (click)="addMe()">
+      <ion-icon name="md-add-circle"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

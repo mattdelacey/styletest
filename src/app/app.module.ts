@@ -1,22 +1,37 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
+import { ProductPage } from '../pages/product/product';
+import { SearchPage } from '../pages/search/search';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { SettingsPage } from '../pages/settings/settings';
-import { AccountPage } from '../pages/account/account';
+import { RefPage } from '../pages/ref/ref';
+import { RefDetailPage } from '../pages/refdetail/refdetail';
+import { AccountsPage } from '../pages/accounts/accounts';
+import { OfflinePage } from '../pages/offline/offline';
+import { AccountDetailPage } from '../pages/accountdetail/accountdetail';
+import { LoginPage } from '../pages/login/login';
+import { TasksPage } from '../pages/tasks/tasks';
+import { MapPage } from '../pages/map/map';
+import { AllTasksPage } from '../pages/alltasks/alltasks';
+import { BrandData } from '../providers/brand-data';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    ProductPage,
+    SearchPage,
     HomePage,
     TabsPage,
-    SettingsPage,
-    AccountPage
+    RefPage,
+    AccountsPage,
+    OfflinePage,
+    LoginPage,
+    TasksPage,
+    AccountDetailPage,
+    RefDetailPage,
+    MapPage,
+    AllTasksPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -24,13 +39,20 @@ import { AccountPage } from '../pages/account/account';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    ProductPage,
+    SearchPage,
     HomePage,
     TabsPage,
-    AccountPage,
-    SettingsPage
+    AccountsPage,
+    OfflinePage,
+    RefPage,
+    LoginPage,
+    TasksPage,
+    AccountDetailPage,
+    RefDetailPage,
+    MapPage,
+    AllTasksPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, BrandData]
 })
 export class AppModule {}

@@ -1,0 +1,11 @@
+<ion-header>
+ <ion-navbar color={{myBrandData.PrimaryColor}}>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Reference Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(myref._downloadURL)" width="100%" height="100%"></iframe>
+</ion-content>

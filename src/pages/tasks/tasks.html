@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar color={{myBrandData.PrimaryColor}}>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Tasks</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="card-background-page">
+  <div class="list">
+    <ion-list>
+      <!--<div class="item item-thumbnail-left item-text-wrap">-->
+      <div text-center>
+        <img class="displayed" src="assets/img/list.png" height="30%">
+        <br>
+        
+          <h2>My Personal</h2>
+          <p>To Do List</p>
+        
+      </div>
+      <!--<div class="card-title">São Paulo</div>
+    <div class="card-subtitle">41 Listings</div>-->
+      <!--</div>-->
+      <ion-item>
+        <ion-label fixed>Task</ion-label>
+        <ion-input type="text" id="task" [(ngModel)]="taskData.action"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Due Date</ion-label>
+        <ion-input type="text" id="duedate" [(ngModel)]="taskData.duedate"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Completed</ion-label>
+        <ion-checkbox color="dark" checked="true" [(ngModel)]="taskData.completed"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+    <!--<button ion-button color="dark" small (click)="photoMe()">
+        <ion-icon name="md-camera"></ion-icon>
+        &nbsp;&nbsp;photo
+    </button>-->
+    <button ion-button color="dark" small (click)="submitMe()">
+        <ion-icon name="md-add"></ion-icon>
+        &nbsp;&nbsp;submit
+    </button>
+    
+    <!-- <button class="button icon-left ion-camera" ng-click="picMe()">Photo</button>
+            <button class="button icon-left ion-ios-cloud-upload" ng-click="insertme()">Save</button>
+            <button class="button icon-left ion-clipboard" ng-click="reportMe()">Report</button>
+            <img id="myImage" width="100%"></img>-->
+  </div>
+</ion-content>

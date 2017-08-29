@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color={{myBrandData.PrimaryColor}}>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Account Details</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+  <ion-list-header>
+    Invoice data for:  {{myaccount.accountname}}
+  </ion-list-header>
+    <ion-item *ngFor="let invoice of myaccount.invoice">
+      <ion-icon name="md-person" item-start>
+        <h2 item-content>{{invoice.Amount}}</h2>
+        <h3 item-content>{{invoice.InvoiceNumber}}</h3>
+      </ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

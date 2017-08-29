@@ -1,11 +1,21 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Events, Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { SettingsPage } from '../pages/settings/settings';
-import { AccountPage } from '../pages/account/account';
+import { RefPage } from '../pages/ref/ref';
+//import { RefDetailPage } from '../pages/refdetail/refdetail';
+import { AccountsPage } from '../pages/accounts/accounts';
+import { OfflinePage } from '../pages/offline/offline';
+//import { AccountDetailPage } from '../pages/accountdetail/accountdetail';
+import { LoginPage } from '../pages/login/login';
+import { TasksPage } from '../pages/tasks/tasks';
+import { MapPage } from '../pages/map/map';
+import { AllTasksPage } from '../pages/alltasks/alltasks';
+//import { BrandData } from '../../providers/brand-data';
+
+
 
 @Component({
   templateUrl: 'app.html'
@@ -15,17 +25,39 @@ export class MyApp {
 
   rootPage = TabsPage;
 
-  pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+
+  pages: Array<{title: string, component: any, icon: string}>;
+
+  constructor(public platform: Platform, public events: Events) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Homepage', component: TabsPage },
-      { title: 'Settings', component: SettingsPage },
-      { title: 'Account', component: AccountPage }
+    { title: 'Login', component: LoginPage, icon: 'md-lock' },
+      { title: 'Home', component: TabsPage, icon: 'md-home' },
+      { title: 'Reference', component: RefPage, icon: 'md-book' },
+      { title: 'Accounts', component: AccountsPage, icon: 'md-people' },
+      { title: 'Add Task', component: TasksPage, icon: 'md-briefcase' },
+      { title: 'Tasks', component: AllTasksPage, icon: 'md-attach' },
+      { title: 'Offline', component: OfflinePage, icon: 'md-wifi' },
+      { title: 'Geo', component: MapPage, icon: 'md-map' }
+     
+      
     ];
+
+    events.subscribe('menu:change', (changearray) => {
+    // user and time are the same arguments passed in `events.publish(user, time)`
+    console.log(changearray.length);
+    //console.log(Object.keys(changearray).length);
+    console.log('loading menu styles');
+    for (let i=0; i < changearray.length; i ++ ) {
+      //console.log(i);
+      //console.log(changearray[i].title);
+      this.pages[i].title = changearray[i].title;
+      this.pages[i].icon = changearray[i].icon;
+    }
+  });
 
   }
   openPage(page) {
@@ -38,6 +70,7 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      console.log('platform ready');
       StatusBar.styleDefault();
       Splashscreen.hide();
     });

@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="login-background">
+  <ion-item>
+    <ion-label>Username</ion-label>
+    <ion-input [(ngModel)]="userData.email" name="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>Password</ion-label>
+    <ion-input [(ngModel)]="userData.password" name="password" type="password"></ion-input>
+  </ion-item>
+  <br><br><br>
+  <div text-center>
+  <button ion-button icon-start (click)="validateUserKinvey()">
+    <ion-icon name="md-person"></ion-icon>
+    &nbsp;consumer auth
+  </button>
+  <button ion-button icon-start (click)="validateUserMIC()">
+  &nbsp;enterprise auth
+  <ion-icon name="md-briefcase"></ion-icon>
+</button></div><br><br>
+<div text-center>
+  <button ion-button icon-start color="danger" (click)="logout()">
+  logout&nbsp;
+  <ion-icon name="md-unlock"></ion-icon>
+</button>
+</div><br><br>
+<div text-center>
+<button ion-button clear (click)="signUp()">sign up</button></div>
+
+<!--
+  <br><br><br>
+<div text-center>
+<button ion-button icon-start color="danger" ng-click="logout()">
+  logout&nbsp;
+  <ion-icon name="md-unlock"></ion-icon>
+</button>-->
+  <!-- <div class="list">
+      <label class="item item-input">
+        <span class="input-label">Username</span>
+        <input autocapitalize="none" type="text" ng-model="userData.email">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Password</span>
+        <input type="password" ng-model="userData.password">
+      </label>
+    </div>
+    <div class="padding">
+      <br>
+      <br>
+      <button class="button button-block kinveybutton" ng-click="validateUserKinvey()">
+        Login with Kinvey Auth
+      </button>
+      <button class="button button-block kinveybutton" ng-click="validateUser()">
+        Login with MIC
+      </button>
+      <span class="error acemtext" ng-show="submittedError">{{errorDescription}}</span>
+    </div>
+    <div class="padding">
+      <button class="button button-block kinveybutton" ng-click="logout()">
+        Logout
+      </button>
+      <span class="error" ng-show="submittedError">{{errorDescription}}</span>
+    </div>
+    <div class="padding">
+      <u><label ng-click="signUp()">
+                Create new Account
+            </label></u>
+    </div>-->
+</ion-content>
