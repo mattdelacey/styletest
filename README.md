@@ -1,16 +1,15 @@
-# Ionic 2 Side Menu + Tabs
+# Standard Demo Environment - Ionic 2
 
 ## What is here?
 
-[Ionic 2 Final](http://blog.ionic.io/announcing-ionic-2-0-0-final/) is here, and this project has been updated to reflect that. See the [related blog post on Khophi's Dev](https://blog.khophi.co/ionic-2-side-menu-tabs/) for more details
+08/29/2017 - At this time, this should have feature parity with the original Ionic 1 version of the Standard Demo Environment with two exceptions:
 
-Screenshot:
-[![ionic 2 sidemenu tabs][2]][2]
-[2]: http://i.stack.imgur.com/JfbVb.png
+- Image capture on the tasks is currently not working.
+- Customization of all menu items in terms of name and icon is all possible, but the tabs require more manual intervention right now.
 
-Test it out locally
-- Clone this repo
-- `npm install`
-- `ionic serve -l`
+To run, clone this repo and then run: npm install
 
-Get ionized!
+Then, you should be able to either run ionic serve or ionic corodovabuild and install on a device.
+
+ionic cordova build ios
+
