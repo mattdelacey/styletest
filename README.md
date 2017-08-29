@@ -9,7 +9,7 @@
 
 To run, clone this repo and then run: npm install
 
-Then, you should be able to either run ionic serve or ionic corodovabuild and install on a device.
+Then, you should be able to either run ionic serve or ionic corodova build ios and install on a device.
 
 ionic cordova build ios
 
