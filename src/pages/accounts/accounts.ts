@@ -28,7 +28,7 @@ export class AccountsPage {
 
   getDetail(account) {
     console.log('getting detail 2');
-    
+
     console.log(account);
     this.navCtrl.push(AccountDetailPage, {
       account: account
@@ -39,7 +39,7 @@ export class AccountsPage {
   refreshMe() {
     console.log('refreshing accounts');
 
-    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as any;
+    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as Kinvey.NetworkStore;
 
     dataStore.find()
     .subscribe((entities: {}[]) => {
@@ -52,13 +52,13 @@ export class AccountsPage {
       console.log('finished loading accounts');
     });
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccountsPage');
     console.log(this.brandData.getBrand());
     //console.log(this.parent.pages);
     //console.log(this.myMenu.getMenus());
-    
+
     this.myBrandData = this.brandData.getBrand();
     //this.brandData.setBrand({foo:"accounts"});
     this.refreshMe();

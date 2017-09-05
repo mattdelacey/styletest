@@ -57,14 +57,14 @@ export class TasksPage {
     }, (err) => {
         console.log(err);
     });
-  
+
   }
 
   decodeArrayBuffer(input) {
     var bytes = (input.length/4) * 3;
     var ab = new ArrayBuffer(bytes);
     this.decode(input, ab);
-    
+
     return ab;
   }
 
@@ -82,37 +82,37 @@ export class TasksPage {
     input = this.removePaddingChars(input);
 
     var bytes = (input.length / 4) * 3;
-    
+
     var uarray;
     var chr1, chr2, chr3;
     var enc1, enc2, enc3, enc4;
     var i = 0;
     var j = 0;
-    
+
     if (arrayBuffer)
       uarray = new Uint8Array(arrayBuffer);
     else
       uarray = new Uint8Array(bytes);
-    
+
     input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-    
-    for (i=0; i<bytes; i+=3) {  
+
+    for (i=0; i<bytes; i+=3) {
       //get the 3 octects in 4 ascii chars
       enc1 = this._keyStr.indexOf(input.charAt(j++));
       enc2 = this._keyStr.indexOf(input.charAt(j++));
       enc3 = this._keyStr.indexOf(input.charAt(j++));
       enc4 = this._keyStr.indexOf(input.charAt(j++));
-  
+
       chr1 = (enc1 << 2) | (enc2 >> 4);
       chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
       chr3 = ((enc3 & 3) << 6) | enc4;
-  
-      uarray[i] = chr1;      
+
+      uarray[i] = chr1;
       if (enc3 != 64) uarray[i+1] = chr2;
       if (enc4 != 64) uarray[i+2] = chr3;
     }
-  
-    return uarray;  
+
+    return uarray;
   }
 
   submitMe() {
@@ -127,7 +127,7 @@ export class TasksPage {
     let myFile = this.base64Image;
     const fileContent = myFile;//this.decodeArrayBuffer(myFile);//myFile;//"data:image/jpeg;base64," + this.base64Image;
     const metadata ={
-      
+
       filename: 'ServicePic.jpg',
       mimeType: 'image/jpeg',
       size: fileContent.length
@@ -140,7 +140,7 @@ export class TasksPage {
         console.log(error);
       });
 
-    const dataStore = Kinvey.DataStore.collection('tasks', Kinvey.DataStoreType.Network) as any;
+    const dataStore = Kinvey.DataStore.collection('tasks', Kinvey.DataStoreType.Network) as Kinvey.NetworkStore;
 
     dataStore.save(this.taskData)
     .then((entity: {}) => {
@@ -158,7 +158,7 @@ export class TasksPage {
   refreshMe() {
     console.log('refreshing accounts');
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad TasksPage');
 

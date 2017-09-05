@@ -17,7 +17,7 @@ declare var google;
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html'
-  
+
 })
 export class MapPage {
 
@@ -35,29 +35,29 @@ export class MapPage {
   constructor(private ref: ChangeDetectorRef, public navCtrl: NavController, public navParams: NavParams, private brandData: BrandData) {}
 
   /*addMarker(){
- 
+
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: this.map.getCenter()
     });
- 
-    let content = "<h4>Information!</h4>";          
- 
+
+    let content = "<h4>Information!</h4>";
+
     this.addInfoWindow(marker, content);
- 
+
   }
 
   addInfoWindow(marker, content) {
- 
+
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
- 
+
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
     });
- 
+
   }*/
 
 
@@ -78,13 +78,13 @@ export class MapPage {
   populateMap() {
     console.log('populating map');
 
-    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as any;
+    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as Kinvey.NetworkStore;
 
     dataStore.find()
     .subscribe((locations: {}[]) => {
       this.locations = locations;
       console.log(this.locations);
-      
+
       for (var i = 0; i < this.locations.length; i++) {
                         var mylat = parseInt(this.locations[i]._geoloc[0]);
                         var mylong = parseInt(this.locations[i]._geoloc[1]);
@@ -138,7 +138,7 @@ export class MapPage {
       console.log('finished loading accounts');
     });*/
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
 
