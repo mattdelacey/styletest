@@ -14,6 +14,7 @@ import { LoginPage } from '../pages/login/login';
 import { TasksPage } from '../pages/tasks/tasks';
 import { MapPage } from '../pages/map/map';
 import { AllTasksPage } from '../pages/alltasks/alltasks';
+import { ChatPage } from '../pages/chat/chat';
 import { BrandData } from '../providers/brand-data';
 
 @NgModule({
@@ -31,7 +32,8 @@ import { BrandData } from '../providers/brand-data';
     AccountDetailPage,
     RefDetailPage,
     MapPage,
-    AllTasksPage
+    AllTasksPage,
+    ChatPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -51,7 +53,8 @@ import { BrandData } from '../providers/brand-data';
     AccountDetailPage,
     RefDetailPage,
     MapPage,
-    AllTasksPage
+    AllTasksPage,
+    ChatPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, BrandData]
 })

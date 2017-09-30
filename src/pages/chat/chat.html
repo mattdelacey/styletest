@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar color={{myBrandData.PrimaryColor}}>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Chat</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+  <ion-list>
+   <ion-item>
+        <ion-label fixed>Msg:</ion-label>
+        <ion-input type="text" id="msg" [(ngModel)]="chatData.msg"></ion-input>
+        
+      </ion-item>
+      <ion-item>
+      <button ion-button outline item-end (click)="addMe()">send</button>
+    </ion-item>
+    <ion-item *ngFor="let chat of chats" (click)="getDetail(account)">
+      <ion-icon name="md-quote" item-start>
+        <h2 item-content>{{chat.msg}}</h2>
+       <!-- <h3 item-content>{{account.accountcompany}}</h3>-->
+      </ion-icon>
+    </ion-item>
+  </ion-list>
+  <!--<ion-fab top right edge>
+    <button ion-fab mini (click)="refreshMe()">
+      <ion-icon name="md-refresh-circle"></ion-icon>
+    </button>
+  </ion-fab>-->
+</ion-content>

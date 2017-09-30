@@ -12,6 +12,7 @@ import { OfflinePage } from '../pages/offline/offline';
 import { LoginPage } from '../pages/login/login';
 import { TasksPage } from '../pages/tasks/tasks';
 import { MapPage } from '../pages/map/map';
+import { ChatPage } from '../pages/chat/chat';
 import { AllTasksPage } from '../pages/alltasks/alltasks';
 //import { BrandData } from '../../providers/brand-data';
 
@@ -41,7 +42,8 @@ export class MyApp {
       { title: 'Add Task', component: TasksPage, icon: 'md-briefcase' },
       { title: 'Tasks', component: AllTasksPage, icon: 'md-attach' },
       { title: 'Offline', component: OfflinePage, icon: 'md-wifi' },
-      { title: 'Geo', component: MapPage, icon: 'md-map' }
+      { title: 'Geo', component: MapPage, icon: 'md-map' },
+      { title: 'Chat', component: ChatPage, icon: 'md-chatboxes' }
      
       
     ];

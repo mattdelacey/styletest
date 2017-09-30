@@ -27,7 +27,7 @@ export class HomePage {
 
     if (activeUser) {
       console.log( 'active user exists, stay home');
-      const dataStore = Kinvey.DataStore.collection('DemoBrandingData', Kinvey.DataStoreType.Network);
+      const dataStore = Kinvey.DataStore.collection('DemoBrandingData', Kinvey.DataStoreType.Network) as any;
     
     
     dataStore.find()

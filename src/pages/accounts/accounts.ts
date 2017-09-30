@@ -4,6 +4,7 @@ import { Kinvey } from 'kinvey-angular2-sdk';
 
 import { AccountDetailPage } from '../accountdetail/accountdetail';
 import { BrandData } from '../../providers/brand-data';
+import { ToastController } from 'ionic-angular';
 //import { MyApp } from '../../app/brand-data';
 
 /*
@@ -24,7 +25,7 @@ export class AccountsPage {
 
 
 
-  constructor(private ref: ChangeDetectorRef, public navCtrl: NavController, public navParams: NavParams, private brandData: BrandData, private myMenu: MenuController, public events:Events) {}
+  constructor(private toastCtrl: ToastController, private ref: ChangeDetectorRef, public navCtrl: NavController, public navParams: NavParams, private brandData: BrandData, private myMenu: MenuController, public events:Events) {}
 
   getDetail(account) {
     console.log('getting detail 2');
@@ -58,6 +59,36 @@ export class AccountsPage {
     console.log(this.brandData.getBrand());
     //console.log(this.parent.pages);
     //console.log(this.myMenu.getMenus());
+
+    var myaccounts = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as any;
+
+    myaccounts.subscribe({
+      onMessage: (m) => {
+        console.log(m);
+
+        let toast = this.toastCtrl.create({
+    message: JSON.stringify(m),
+    duration: 3000,
+    position: 'top'
+  });
+
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
+      },
+      onStatus: (s) => {
+        // handle status events, which pertain to this collection
+        console.log(s);
+      },
+      onError: (e) => {
+        // handle error events, which pertain to this collection
+        console.log(e);
+      }
+})
+  .then(() => {console.log('success');})
+  .catch(e => {console.log(e);});
     
     this.myBrandData = this.brandData.getBrand();
     //this.brandData.setBrand({foo:"accounts"});
