@@ -69,7 +69,7 @@ export class OfflinePage {
   refreshMe() {
     console.log('refreshing accounts');
 
-    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as any;
+    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as Kinvey.NetworkStore;
 
     dataStore.find()
     .subscribe((entities: {}[]) => {
@@ -87,14 +87,14 @@ export class OfflinePage {
   syncMe() {
     console.log('synching accounts');
 
-    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Sync) as any;
-    dataStore.sync().then((entities: Array<{}>) => {
-  
+    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Sync) as Kinvey.SyncStore;
+    dataStore.sync().then(() => {
+
 }).catch((error: Kinvey.KinveyError) => {
   console.log(error);
 });
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad OfflinePage');
     console.log(this.brandData.getBrand());

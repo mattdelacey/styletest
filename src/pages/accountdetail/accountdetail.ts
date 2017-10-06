@@ -35,7 +35,7 @@ export class AccountDetailPage {
 
     // do a lookup, based on _id
     //
-    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as any;
+    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as Kinvey.NetworkStore;
 
     dataStore.findById(this.account._id)
       .subscribe((entity: {}) => {

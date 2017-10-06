@@ -4,18 +4,12 @@ import { Kinvey } from 'kinvey-angular2-sdk';
 
 import { BrandData } from '../../providers/brand-data';
 import { Camera } from 'ionic-native';
-//import { Base64Binary } from 'base64-binary';
+//import { File, Entry } from '@ionic-native/file';
+import { File } from 'ionic-native';
 
-/*
-  Generated class for the Settings page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-tasks',
   templateUrl: 'tasks.html'
-  //providers: [BrandData]
 })
 
 export class TasksPage {
@@ -33,8 +27,9 @@ export class TasksPage {
   _keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
 
   public base64Image: string;
+  public fileURI: string;
 
-  constructor(private ref: ChangeDetectorRef, public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public brandData: BrandData) {}
+  constructor(public file:File, private ref: ChangeDetectorRef, public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public brandData: BrandData) {}
 
   presentToast(text) {
     let toast = this.toastCtrl.create({
@@ -48,23 +43,23 @@ export class TasksPage {
      console.log('saving picture');
 
         Camera.getPicture({
-        destinationType: Camera.DestinationType.DATA_URL,
+        destinationType: Camera.DestinationType.FILE_URI,
         targetWidth: 1000,
         targetHeight: 1000
     }).then((imageData) => {
       // imageData is a base64 encoded string
-        this.base64Image = imageData;
+        this.fileURI = imageData;
     }, (err) => {
         console.log(err);
     });
-  
+
   }
 
-  decodeArrayBuffer(input) {
+  /*decodeArrayBuffer(input) {
     var bytes = (input.length/4) * 3;
     var ab = new ArrayBuffer(bytes);
     this.decode(input, ab);
-    
+
     return ab;
   }
 
@@ -82,38 +77,38 @@ export class TasksPage {
     input = this.removePaddingChars(input);
 
     var bytes = (input.length / 4) * 3;
-    
+
     var uarray;
     var chr1, chr2, chr3;
     var enc1, enc2, enc3, enc4;
     var i = 0;
     var j = 0;
-    
+
     if (arrayBuffer)
       uarray = new Uint8Array(arrayBuffer);
     else
       uarray = new Uint8Array(bytes);
-    
+
     input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-    
-    for (i=0; i<bytes; i+=3) {  
+
+    for (i=0; i<bytes; i+=3) {
       //get the 3 octects in 4 ascii chars
       enc1 = this._keyStr.indexOf(input.charAt(j++));
       enc2 = this._keyStr.indexOf(input.charAt(j++));
       enc3 = this._keyStr.indexOf(input.charAt(j++));
       enc4 = this._keyStr.indexOf(input.charAt(j++));
-  
+
       chr1 = (enc1 << 2) | (enc2 >> 4);
       chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
       chr3 = ((enc3 & 3) << 6) | enc4;
-  
-      uarray[i] = chr1;      
+
+      uarray[i] = chr1;
       if (enc3 != 64) uarray[i+1] = chr2;
       if (enc4 != 64) uarray[i+2] = chr3;
     }
-  
-    return uarray;  
-  }
+
+    return uarray;
+  }*/
 
   submitMe() {
     console.log('submitme');
@@ -122,12 +117,64 @@ export class TasksPage {
     console.log(this.taskData.action);
     console.log(this.taskData.completed);
 
+
+    (this.file as any).resolveLocalFileSystemURL(this.fileURI,
+                function(fileEntry) {
+                    fileEntry.file(function(file) {
+                        console.log(file);
+
+                        /*var reader = new FileReader();
+                        var myindex = $scope.taskInfo.myfile.lastIndexOf('/') + 1;
+                        var mystring = $scope.taskInfo.myfile.substring(myindex);
+
+                        reader.onload = function(event) {
+                            console.log('onload');;
+                            console.log(event);
+                        }
+
+                        reader.onloadend = function(event) {
+                            console.log('onloadend');
+                            var imagedata = event.target._result;
+                            console.log(imagedata.byteLength);
+                            var metadata = {
+                                filename: "ServicePic.jpg",
+                                mimeType: "image/jpeg",
+                                size: imagedata.byteLength,
+                                public: true
+                            };
+                            console.log(event);*/
+
+                           /* var promise = $kinvey.Files.upload(imagedata, metadata)
+                                .then(function(myfile) {
+                                    console.log(myfile);
+                                    var promise = $kinvey.Files.stream(myfile._id)
+                                        .then(function(file) {
+                                            console.log(file);
+                                            $scope.taskInfo.savedurl = file._downloadURL;
+
+                                        })
+                                        .catch(function(error) {
+                                            console.log(error);
+                                        });
+
+                                })
+                                .catch(function(error) {
+                                    console.log(error);
+                                });*/
+                       // };
+
+                        /*reader.readAsArrayBuffer(file);*/
+                    });
+                }
+            );
+
+
     // upload image data
     //
-    let myFile = this.base64Image;
+    /*let myFile = this.base64Image;
     const fileContent = myFile;//this.decodeArrayBuffer(myFile);//myFile;//"data:image/jpeg;base64," + this.base64Image;
     const metadata ={
-      
+
       filename: 'ServicePic.jpg',
       mimeType: 'image/jpeg',
       size: fileContent.length
@@ -140,7 +187,7 @@ export class TasksPage {
         console.log(error);
       });
 
-    const dataStore = Kinvey.DataStore.collection('tasks', Kinvey.DataStoreType.Network) as any;
+    const dataStore = Kinvey.DataStore.collection('tasks', Kinvey.DataStoreType.Network) as Kinvey.NetworkStore;
 
     dataStore.save(this.taskData)
     .then((entity: {}) => {
@@ -150,7 +197,7 @@ export class TasksPage {
     }).catch(function(error: Kinvey.KinveyError) {
       console.log(error);
       this.presentToast('ERROR: ' + error.message);
-    });
+    });*/
 
   }
 
@@ -158,7 +205,7 @@ export class TasksPage {
   refreshMe() {
     console.log('refreshing accounts');
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad TasksPage');
 

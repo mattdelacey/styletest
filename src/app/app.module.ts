@@ -16,6 +16,7 @@ import { MapPage } from '../pages/map/map';
 import { AllTasksPage } from '../pages/alltasks/alltasks';
 import { ChatPage } from '../pages/chat/chat';
 import { BrandData } from '../providers/brand-data';
+import {File} from 'ionic-native'
 
 @NgModule({
   declarations: [
@@ -56,6 +57,6 @@ import { BrandData } from '../providers/brand-data';
     AllTasksPage,
     ChatPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, BrandData]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, BrandData, File]
 })
 export class AppModule {}
