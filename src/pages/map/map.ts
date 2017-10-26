@@ -12,6 +12,7 @@ import { BrandData } from '../../providers/brand-data';
   Ionic pages and navigation.
 */
 declare var google;
+//var gmarkers = [];
 
 
 @Component({
@@ -29,97 +30,73 @@ export class MapPage {
   locations:any;
   gmarkers = [];
 
-
-
-
   constructor(private ref: ChangeDetectorRef, public navCtrl: NavController, public navParams: NavParams, private brandData: BrandData) {}
-
-  /*addMarker(){
-
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
-    });
-
-    let content = "<h4>Information!</h4>";
-
-    this.addInfoWindow(marker, content);
-
-  }
-
-  addInfoWindow(marker, content) {
-
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    });
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    });
-
-  }*/
-
 
   loadMap() {
     console.log('initializing map');
 
-    var myLatlng = new google.maps.LatLng(39.8282109, -98.5795706);
+    var myLatlng = new google.maps.LatLng(37.981345, -84.571806);
 
             var mapOptions = {
                 center: myLatlng,
-                zoom: 3,
+                zoom: 17,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            this.map = new google.maps.Map(this.mapElement.nativeElement,//document.getElementById("mymap"),
+            this.map = new google.maps.Map(this.mapElement.nativeElement,
                 mapOptions);
   }
 
   populateMap() {
     console.log('populating map');
 
-    const dataStore = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as Kinvey.NetworkStore;
+    const dataStore = Kinvey.DataStore.collection('live', Kinvey.DataStoreType.Network) as Kinvey.NetworkStore;
 
-    dataStore.find()
-    .subscribe((locations: {}[]) => {
-      this.locations = locations;
-      console.log(this.locations);
+    var stream = dataStore.findById('59de4c5f2ab51639e2f1073e');
+    
+      stream.subscribe((thisentity: {}) => {
+      var entity = thisentity as any;
+      console.log(entity);
+      var mylat = parseFloat(entity._geoloc[0]);
+      var mylong = parseFloat(entity._geoloc[1]);
+      console.log(mylat + ", " + mylong);
+      console.log(entity.accountname);
 
-      for (var i = 0; i < this.locations.length; i++) {
-                        var mylat = parseInt(this.locations[i]._geoloc[0]);
-                        var mylong = parseInt(this.locations[i]._geoloc[1]);
-                        console.log(mylat + ", " + mylong);
-                        console.log(this.locations[i].accountname);
-                        var info = new google.maps.InfoWindow({
-                            content: '<b>Who:</b> ' + this.locations[i].accountname + '<br><b>Notes:</b> ' + this.locations[i].accountcompany
-                        });
+      var info = new google.maps.InfoWindow({
+          content: '<b>Who:</b> ' + entity.accountname + '<br><b>Notes:</b> ' + entity.accountcompany
+      });
+      console.log("1");
 
+      var myLatlng = new google.maps.LatLng(mylat, mylong);
+      console.log("2");
 
-                        /*var mapOptions = {
+      var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: this.map,
+        title: entity.accountname
+      });
+      
+      console.log("3");
 
-                            mapTypeId: google.maps.MapTypeId.ROADMAP
-                        };*/
-
-                        var myLatlng = new google.maps.LatLng(mylat, mylong);
-                        var marker = new google.maps.Marker({
-                            position: myLatlng,
-                            map: this.map,
-                            title: this.locations[i].accountname
-                        });
-                        this.gmarkers.push(marker);
-                        google.maps.event.addListener(marker, 'click', (function(info) {
-                            return function() {
-                                info.open(this.map, this);
-                            }
-                        })(info));
-
-                    }
+      try {
+      this.gmarkers.push(marker);
+    } catch(e) {
+      console.log(e);
+    }
+      console.log("4");
+      google.maps.event.addListener(marker, 'click', (function(info) {
+          return function() {
+            info.open(this.map, this);
+          }
+      })(info));
+      console.log("5");
+      
     }, (error: Kinvey.KinveyError) => {
       console.log(error);
     }, () => {
       this.ref.detectChanges();
       console.log('finished loading accounts for mapping');
     });
+   
   }
 
   refreshMe() {
@@ -139,17 +116,67 @@ export class MapPage {
     });*/
   }
 
+  clearMap() {
+    for (var i = 0; i < this.gmarkers.length; i++) {
+          this.gmarkers[i].setMap(null);
+    }
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
 
     this.loadMap();
     this.populateMap();
-    /*console.log(this.brandData.getBrand());
-    this.myBrandData = this.brandData.getBrand();
-    //this.brandData.setBrand({foo:"accounts"});
-    this.refreshMe();*/
+    
+    // initiate realtime service
+    //
+    var myaccounts = Kinvey.DataStore.collection('live', Kinvey.DataStoreType.Network) as any;
+
+   myaccounts.subscribe({
+      onMessage: (m) => {
+        console.log(m);
+        console.log(m._geoloc);
+
+        this.clearMap();
+
+        var mylat = parseFloat(m._geoloc[0]);
+      var mylong = parseFloat(m._geoloc[1]);
+      console.log(mylat + ", " + mylong);
+      console.log(m.accountname);
+
+      var info = new google.maps.InfoWindow({
+          content: '<b>Who:</b> ' + m.accountname + '<br><b>Notes:</b> ' + m.accountcompany
+      });
+      console.log("1");
+
+      var myLatlng = new google.maps.LatLng(mylat, mylong);
+      console.log("2");
+
+      var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: this.map,
+        title: m.accountname
+      });
+      
+      console.log("3");
+
+      try {
+      this.gmarkers.push(marker);
+    } catch(e) {
+      console.log(e);
+    }
+      console.log("4");
+      google.maps.event.addListener(marker, 'click', (function(info) {
+          return function() {
+            info.open(this.map, this);
+          }
+      })(info));
+      console.log("5");
+
+    }
+  })
+    .then(() => {console.log('success');})
+    .catch(e => {console.log(e);});
+    
   }
-
-
-
 }

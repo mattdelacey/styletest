@@ -90,7 +90,7 @@ export class AccountsPage {
   .catch(e => {console.log(e);});
     
     this.myBrandData = this.brandData.getBrand();
-    //this.brandData.setBrand({foo:"accounts"});
+    
     this.refreshMe();
   }
 
