@@ -33,7 +33,7 @@ export class LoginPage {
     Kinvey.User.loginWithMIC('http://localhost:8100', Kinvey.AuthorizationGrant.AuthorizationCodeLoginPage, { version: 'v2' } as any)
       .then((user: Kinvey.User) => {
         console.log(user);
-        const activeUser = Kinvey.User.getActiveUser();
+        /*const activeUser = Kinvey.User.getActiveUser();
 
         (activeUser as any).registerForLiveService()
           .then(() => {
@@ -41,7 +41,7 @@ export class LoginPage {
           })
           .catch(err => {
             console.log('live service error: ' + err);
-        });
+        });*/
 
         this.navCtrl.setRoot(HomePage);
     })

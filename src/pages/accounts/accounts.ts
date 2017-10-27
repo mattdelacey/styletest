@@ -53,47 +53,68 @@ export class AccountsPage {
     });
   }
 
+  ionViewDidLeave() {
+    const activeUser = Kinvey.User.getActiveUser();
+    activeUser.unregisterFromLiveService()
+    .then(() => {
+      console.log('successfully unregistered live service')
+    })
+    .catch(err => {
+      console.log('error unregistering live service: ' + err);
+    });
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccountsPage');
     console.log(this.brandData.getBrand());
-    //console.log(this.parent.pages);
-    //console.log(this.myMenu.getMenus());
-
-    var myaccounts = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as any;
-
-    myaccounts.subscribe({
-      onMessage: (m) => {
-        console.log(m);
-
-        let toast = this.toastCtrl.create({
-    message: JSON.stringify(m),
-    duration: 3000,
-    position: 'top'
-  });
-
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
-
-  toast.present();
-      },
-      onStatus: (s) => {
-        // handle status events, which pertain to this collection
-        console.log(s);
-      },
-      onError: (e) => {
-        // handle error events, which pertain to this collection
-        console.log(e);
-      }
-})
-  .then(() => {console.log('success');})
-  .catch(e => {console.log(e);});
     
-    this.myBrandData = this.brandData.getBrand();
-    
-    this.refreshMe();
+    // register the live service
+    //
+    const activeUser = Kinvey.User.getActiveUser();
+
+        (activeUser as any).registerForLiveService()
+          .then(() => {
+            console.log('successfully registered for live service');
+            var myaccounts = Kinvey.DataStore.collection('accounts', Kinvey.DataStoreType.Network) as any;
+
+            myaccounts.subscribe({
+              onMessage: (m) => {
+                console.log(m);
+
+                let toast = this.toastCtrl.create({
+                  message: JSON.stringify(m),
+                  duration: 3000,
+                  position: 'top'
+                });
+
+                toast.onDidDismiss(() => {
+                  console.log('Dismissed toast');
+                });
+
+                toast.present();
+              },
+              onStatus: (s) => {
+                // handle status events, which pertain to this collection
+                console.log(s);
+              },
+              onError: (e) => {
+                // handle error events, which pertain to this collection
+                console.log(e);
+              }
+            })
+          .then(() => {console.log('success');})
+          .catch(e => {console.log(e);});
+            
+            this.myBrandData = this.brandData.getBrand();
+            
+            this.refreshMe();
+          })
+
+         /* })
+          .catch(err => {
+            console.log('live service error: ' + err);
+        });*/
+
+
   }
-
-
-
 }
