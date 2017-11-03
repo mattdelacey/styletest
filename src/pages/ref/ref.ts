@@ -1,8 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Kinvey } from 'kinvey-angular2-sdk';
-import { RefDetailPage } from '../refdetail/refdetail';
-import { BrandData } from '../../providers/brand-data';
+
 
 /*
   Generated class for the Settings page.
@@ -16,36 +14,17 @@ import { BrandData } from '../../providers/brand-data';
 })
 export class RefPage {
 
-	refs = [];
+	refs = [{icon2: "md-person", prettyname: "This is some text"},
+  {icon2: "md-person", prettyname: "The quick brown fox"},
+  {icon2: "md-person", prettyname: "jumped over the lazy"},
+  {icon2: "md-person", prettyname: "dog"},
+  {icon2: "md-person", prettyname: "last one"}
+  ];
   myBrandData = {};
 
-  constructor(private ref: ChangeDetectorRef, public navCtrl: NavController, public navParams: NavParams, public brandData: BrandData) {}
+  constructor(private ref: ChangeDetectorRef, public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RefPage');
-    this.myBrandData = this.brandData.getBrand();
-
-    const query = new Kinvey.Query();
-  	query.equalTo('icon2', 'md-document');
-  	Kinvey.Files.find(query)
-    	.then((files: {}[]) => {
-    		this.refs = files;
-      	console.log(files);
-      	this.ref.detectChanges();
-    	})
-    	.catch((error: Kinvey.KinveyError) => {
-      	console.log(error);
-    	});
-
-    }
-
-    getDetail(ref) {
-      console.log('inside get ref detail');
-
-      console.log(ref);
-
-      this.navCtrl.push(RefDetailPage, {
-        ref: ref
-      });
-    }
+    
+  }
 }

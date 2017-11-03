@@ -11,10 +11,6 @@ export class BrandData {
  
   ) {}
 
-  /*hasFavorite(sessionName: string): boolean {
-    return (this._favorites.indexOf(sessionName) > -1);
-  };*/
-
   setBrand(newbrand): void {
     this.mybrand = newbrand;
   };
@@ -30,11 +26,4 @@ export class BrandData {
   getTest() {
     return this.mytest;
   }
-
-  /*removeFavorite(sessionName: string): void {
-    let index = this._favorites.indexOf(sessionName);
-    if (index > -1) {
-      this._favorites.splice(index, 1);
-    }
-  };*/
 }

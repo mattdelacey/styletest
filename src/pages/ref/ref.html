@@ -1,15 +1,15 @@
 <ion-header>
-  <ion-navbar color={{myBrandData.PrimaryColor}}>
+  <ion-navbar [color]="myBrandData.PrimaryColor">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Reference Material</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
+<ion-content>
 <ion-list>
     <ion-item *ngFor="let ref of refs" (click)="getDetail(ref)">
-      <ion-icon name="{{ref.icon2}}" item-start>
+      <ion-icon [name]="ref.icon2" item-start>
         	{{ref.prettyname}}
       </ion-icon>
       
