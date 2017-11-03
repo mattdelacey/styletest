@@ -16,7 +16,8 @@ import { MapPage } from '../pages/map/map';
 import { AllTasksPage } from '../pages/alltasks/alltasks';
 import { ChatPage } from '../pages/chat/chat';
 import { BrandData } from '../providers/brand-data';
-import {File} from 'ionic-native'
+import { File } from '@ionic-native/file'
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {File} from 'ionic-native'
     ChatPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    BrowserModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -57,6 +59,6 @@ import {File} from 'ionic-native'
     AllTasksPage,
     ChatPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, BrandData, File]
+  providers: [ {provide: ErrorHandler, useClass: IonicErrorHandler}, File, BrandData]
 })
 export class AppModule {}

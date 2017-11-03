@@ -8,13 +8,13 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding class="login-background">
+<ion-content padding>
   <ion-item>
     <ion-label>Username</ion-label>
-    <ion-input [(ngModel)]="userData.email" name="email"></ion-input>
+    <ion-input [(ngModel)]="userData.email" name="email" autocapitalize="none"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label fixed>Password</ion-label>
+    <ion-label>Password</ion-label>
     <ion-input [(ngModel)]="userData.password" name="password" type="password"></ion-input>
   </ion-item>
   <br><br><br>

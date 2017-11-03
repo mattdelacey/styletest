@@ -110,11 +110,5 @@ export class AccountsPage {
             this.refreshMe();
           })
 
-         /* })
-          .catch(err => {
-            console.log('live service error: ' + err);
-        });*/
-
-
   }
 }

@@ -1,3 +1,9 @@
+Node version: v6.9.1
+
+Cordova version: 7.1.0
+
+Config.xml file: 
+
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ionicframework.sidemenutabs582516" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Kinvey</name>
@@ -65,7 +71,7 @@
     <allow-navigation href="http://192.168.0.9:8100" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
-    <engine name="ios" spec="~4.5.3" />
+    <engine name="ios" spec="~4.5.2" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.1" />
@@ -76,5 +82,15 @@
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
-    <plugin name="cordova-plugin-file" spec="^4.3.3" />
 </widget>
+
+
+Plugins: 
+
+cordova-plugin-camera,cordova-plugin-compat,cordova-plugin-device,cordova-plugin-inappbrowser,cordova-plugin-splashscreen,cordova-plugin-statusbar,cordova-plugin-whitelist,ionic-plugin-keyboard
+
+iOS platform:
+
+Xcode 9.0.1
+Build version 9A1004
+
